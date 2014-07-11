@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Eventing</id>
+    <version>1.0.0</version>
+    <authors>Nikolay Firov</authors>
+    <licenseUrl>https://raw.githubusercontent.com/firov/Eventing/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/firov/Eventing</projectUrl>
+    <description>Eventing is a library for asynchronous event-driven programming</description>
+    <copyright>Copyright 2014</copyright>
+    <tags>asynchronous event-driven</tags>
+  </metadata>
+</package>

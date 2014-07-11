@@ -4,3 +4,5 @@ packages
 *.user
 *.suo
 *.db
+/Build.NuGet/Package/lib
+/Build.NuGet/*.nupkg
