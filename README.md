@@ -9,7 +9,7 @@ Eventing is a library for asynchronous event-driven programming.
 
 ### Overview
 
-Eventing provides you an easy way to write and test asynchronous code using new .net 4.5 async/await feature. The main idea is to replace method calls with raising/waiting events and threads with synchronization context.  This allows to use multithreading while testing code in single thread. At the same time async/await helps us highly increase thread utilization. You also can remove locks from your code, since you determ in which thread code will execute. 
+Eventing provides you an easy way to write and test asynchronous code using .net 4.5 async/await feature. The main idea is to replace method calls with raising/waiting events and threads with synchronization context.  This allows to use multithreading while testing code in single thread. At the same time async/await helps us highly increase thread utilization. You also can remove locks from your code, since you determ in which thread code will execute. 
 
 ### Usage
 *See Eventing.Examples and Eventing.ExamplesOfTests for more information*
@@ -49,7 +49,7 @@ To wait for an event use *WaitFor* method. With template arguments specify event
 ```
 var @event = await this.EventManager.WaitFor<Connected, CancelRequested>(TimeSpan.FromMilliseconds(50));
 ```
-After this call *@event* will contain instance of *Connected* or *CancelRequested* class or null in case of timeout. Code execution will continue in same thread it was before *await* call (If it was in single thread synchronization context).
+After this call *@event* will be an instance of *Connected*, *CancelRequested* class or null in case of timeout. Code execution will continue in same thread it was before *await* call (If it was in single thread synchronization context).
 
 **Receiving events**
 
