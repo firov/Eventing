@@ -9,12 +9,19 @@ namespace Eventing.Library.Impl {
     ///     Implementation of IEventManager. Thread safe when used message bus is thread safe.
     /// </summary>
     public class EventManager : IEventManager {
+        private readonly SynchronizationContext defaultContext;
         private readonly IMessageBus messageBus;
 
         private readonly TraceSource trace = new TraceSource("Eventing.Library.EventManager");
 
         public EventManager(IMessageBus messageBus) {
             this.messageBus = messageBus;
+            this.defaultContext = null; // SynchronizationContext.Current will be used
+        }
+
+        public EventManager(IMessageBus messageBus, SynchronizationContext defaultContext) {
+            this.messageBus = messageBus;
+            this.defaultContext = defaultContext;
         }
 
         /// <summary>
@@ -57,7 +64,7 @@ namespace Eventing.Library.Impl {
                             subscriptionId, message.GetType());
                 },
                 this,
-                UnsubscribePolicy.Auto, null,
+                UnsubscribePolicy.Auto, this.defaultContext,
                 eventTypes);
 
             this.messageBus.Subscribe(subscription);
@@ -135,6 +142,8 @@ namespace Eventing.Library.Impl {
         /// </param>
         public void StartReceiving<T>(Action<T> handler, object listener, Func<T, bool> filter = null,
             SynchronizationContext context = null) where T : IEvent {
+            context = context ?? this.defaultContext;
+
             var subscription = new MessageSubscription(
                 message => {
                     if (filter == null || filter((T) message))
